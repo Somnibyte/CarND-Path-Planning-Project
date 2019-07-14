@@ -1,25 +1,25 @@
-set(Eigen_HEADERS 
-  AdolcForward
-  AlignedVector3
-  ArpackSupport
-  AutoDiff
-  BVH
-  EulerAngles
-  FFT
-  IterativeSolvers 
-  KroneckerProduct
-  LevenbergMarquardt
-  MatrixFunctions 
-  MoreVectorization
-  MPRealSupport
-  NonLinearOptimization
-  NumericalDiff
-  OpenGLSupport
-  Polynomials
-  Skyline 
-  SparseExtra
-  SpecialFunctions
-  Splines
+set(Eigen_HEADERS
+        AdolcForward
+        AlignedVector3
+        ArpackSupport
+        AutoDiff
+        BVH
+        EulerAngles
+        FFT
+        IterativeSolvers
+        KroneckerProduct
+        LevenbergMarquardt
+        MatrixFunctions
+        MoreVectorization
+        MPRealSupport
+        NonLinearOptimization
+        NumericalDiff
+        OpenGLSupport
+        Polynomials
+        Skyline
+        SparseExtra
+        SpecialFunctions
+        Splines
   )
 
 install(FILES

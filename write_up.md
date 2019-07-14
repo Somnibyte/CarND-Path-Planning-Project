@@ -1,0 +1,10 @@
+# CarND-Path-Planning-Project
+
+# Prediction
+On lines `111-146` I created a loop that goes through the `sensor_fusion` vector and extracts the `d` coordinate of each vehicle. Using the `d` coordinate of a given vehicle I check whether that vehicle is in the same lane, or if the vehicle is on the right side, or if the vehicle is on the left side of ego. When either of these conditions have been met than the appropriate boolean (`car_in_front`, `car_on_right`, `car_on_left`) will be set to `true`. These booleans will be used in our behavior planner.
+
+# Behavioral Planner
+The behavioral planner (lines `146-159`) uses the 3 states mentioned earlier to guide the vehicle to a new lane or to stay in the same lane. If there is a car in front of the ego vehicle it will check if either the `car_on_right` or `car_on_left` booleans are set to false. If either the right or left lanes are available the `lane` variable will be incremented or decremented depending on the chosen lane. If the `car_on_right` and the `car_on_left` are both set to `true` we have no choice, but to stay in the same lane and so we simply decrease our speed.
+
+# Trajectory Generation
+The trajectory was generated using a spline library to create a smooth path. Anchor points from a previous path were collected to initialize the spline on lines `160 - 219`. The anchor points were made up of points from a previous path or the cars current position and angle if no previous path was available. After the spline was created I generated points that would make up the vehicles future path. This path consisted of points from the vehicles previous path (if they were available) and newly generated points that continue off a previous path (or the cars current position). These points were spaced along the spline on line `229 - 253`.

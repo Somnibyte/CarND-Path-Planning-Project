@@ -154,4 +154,25 @@ vector<double> getXY(double s, double d, const vector<double> &maps_s,
   return {x,y};
 }
 
+int laneNumFromD(int d) {
+    if(d > 0 && d < 4) {
+        return 0;
+    } else if(d > 4 && d < 8) {
+        return 1;
+    } else if (d > 8 && d < 12) {
+        return 2;
+    }
+
+    return -1;
+}
+
+
+int convertLaneToD(int lane) {
+    if(lane < 0 || lane > 2) {
+        return -1;
+    }
+
+    return 4*lane + 2;
+}
+
 #endif  // HELPERS_H

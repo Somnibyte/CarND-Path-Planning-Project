@@ -363,7 +363,7 @@ option(EIGEN_TEST_CXX11 "Enable testing with C++11 and C++11 features (e.g. Tens
 
 set(EIGEN_CUDA_COMPUTE_ARCH 30 CACHE STRING "The CUDA compute architecture level to target when compiling CUDA code")
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+include_directories(. ${CMAKE_CURRENT_BINARY_DIR})
 
 # Backward compatibility support for EIGEN_INCLUDE_INSTALL_DIR
 if(EIGEN_INCLUDE_INSTALL_DIR)
@@ -401,7 +401,7 @@ macro(ei_add_target_property target prop value)
 endmacro(ei_add_target_property)
 
 install(FILES
-  signature_of_eigen3_matrix_library
+        signature_of_eigen3_matrix_library
   DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel
   )
 
@@ -514,21 +514,21 @@ if (NOT CMAKE_VERSION VERSION_LESS 3.0)
   include (CMakePackageConfigHelpers)
 
   # Imported target support
-  add_library (eigen INTERFACE)
+  add_library (Eigen INTERFACE)
 
-  target_compile_definitions (eigen INTERFACE ${EIGEN_DEFINITIONS})
-  target_include_directories (eigen INTERFACE
+  target_compile_definitions (Eigen INTERFACE ${EIGEN_DEFINITIONS})
+  target_include_directories (Eigen INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
   )
 
   # Export as title case Eigen
-  set_target_properties (eigen PROPERTIES EXPORT_NAME Eigen)
+  set_target_properties (Eigen PROPERTIES EXPORT_NAME Eigen)
 
-  install (TARGETS eigen EXPORT Eigen3Targets)
+  install (TARGETS Eigen EXPORT Eigen3Targets)
 
   configure_package_config_file (
-    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Eigen3Config.cmake.in
+          cmake/Eigen3Config.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/Eigen3Config.cmake
     PATH_VARS EIGEN_INCLUDE_DIR EIGEN_ROOT_DIR
     INSTALL_DESTINATION ${CMAKEPACKAGE_INSTALL_DIR}
@@ -547,7 +547,7 @@ if (NOT CMAKE_VERSION VERSION_LESS 3.0)
 
   # The Eigen target will be located in the Eigen3 namespace. Other CMake
   # targets can refer to it using Eigen3::Eigen.
-  export (TARGETS eigen NAMESPACE Eigen3:: FILE Eigen3Targets.cmake)
+  export (TARGETS Eigen NAMESPACE Eigen3:: FILE Eigen3Targets.cmake)
   # Export Eigen3 package to CMake registry such that it can be easily found by
   # CMake even if it has not been installed to a standard directory.
   export (PACKAGE Eigen3)
@@ -563,7 +563,7 @@ else (NOT CMAKE_VERSION VERSION_LESS 3.0)
   
   if(CPCH_PATH)
     configure_package_config_file (
-      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Eigen3ConfigLegacy.cmake.in
+            cmake/Eigen3ConfigLegacy.cmake.in
       ${CMAKE_CURRENT_BINARY_DIR}/Eigen3Config.cmake
       PATH_VARS EIGEN_INCLUDE_DIR EIGEN_ROOT_DIR
       INSTALL_DESTINATION ${CMAKEPACKAGE_INSTALL_DIR}
@@ -575,7 +575,7 @@ else (NOT CMAKE_VERSION VERSION_LESS 3.0)
     set(PACKAGE_INIT "")
     set(PACKAGE_EIGEN_INCLUDE_DIR ${EIGEN_INCLUDE_DIR})
     set(PACKAGE_EIGEN_ROOT_DIR ${EIGEN_ROOT_DIR})
-    configure_file ( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Eigen3ConfigLegacy.cmake.in
+    configure_file (cmake/Eigen3ConfigLegacy.cmake.in
                      ${CMAKE_CURRENT_BINARY_DIR}/Eigen3Config.cmake
                      @ONLY ESCAPE_QUOTES )
   endif()
@@ -586,11 +586,11 @@ else (NOT CMAKE_VERSION VERSION_LESS 3.0)
 
 endif (NOT CMAKE_VERSION VERSION_LESS 3.0)
 
-install ( FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/UseEigen3.cmake
+install ( FILES cmake/UseEigen3.cmake
                 ${CMAKE_CURRENT_BINARY_DIR}/Eigen3Config.cmake
                 ${CMAKE_CURRENT_BINARY_DIR}/Eigen3ConfigVersion.cmake
           DESTINATION ${CMAKEPACKAGE_INSTALL_DIR} )
 
 # Add uninstall target
 add_custom_target ( uninstall
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/EigenUninstall.cmake)
+    COMMAND ${CMAKE_COMMAND} -P cmake/EigenUninstall.cmake)

@@ -16,7 +16,7 @@ endif()
 set_property(GLOBAL PROPERTY EIGEN_CURRENT_SUBPROJECT "Unsupported")
 add_custom_target(BuildUnsupported)
 
-include_directories(../../test ../../unsupported ../../Eigen
+include_directories(../../test .. ../../Eigen
                     ${CMAKE_CURRENT_BINARY_DIR}/../../test)
 
 find_package (Threads)
@@ -64,7 +64,7 @@ ei_add_test(EulerAngles)
 find_package(MPFR 2.3.0)
 find_package(GMP)
 if(MPFR_FOUND AND EIGEN_COMPILER_SUPPORT_CXX11)
-  include_directories(${MPFR_INCLUDES} ./mpreal)
+  include_directories(${MPFR_INCLUDES} mpreal)
   ei_add_property(EIGEN_TESTED_BACKENDS "MPFR C++, ")
   set(EIGEN_MPFR_TEST_LIBRARIES ${MPFR_LIBRARIES} ${GMP_LIBRARIES})
  ei_add_test(mpreal_support "-std=c++11" "${EIGEN_MPFR_TEST_LIBRARIES}" )
